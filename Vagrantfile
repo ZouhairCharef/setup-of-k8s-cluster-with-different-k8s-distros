@@ -7,33 +7,20 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", path: "bootstrap.sh"
 
-  NodeCount = 2
+  NodeCount = 3
 
+  # Kubernetes Nodes
   (1..NodeCount).each do |i|
-
-    config.vm.define "ubuntuvm#{i}" do |node|
-
-      node.vm.box               = "ubuntu/bionic64"
-      node.vm.box_check_update  = false
-#      node.vm.box_version       = "4.2.16"
-      node.vm.hostname          = "ubuntuvm#{i}.example.com"
-
+    config.vm.define "node#{i}" do |node|
+      node.vm.box = "bento/ubuntu-20.04"
+      node.vm.hostname = "node#{i}.example.com"
       node.vm.network "private_network", ip: "172.16.16.10#{i}"
-
-      node.vm.provider :virtualbox do |v|
-        v.name    = "ubuntuvm#{i}"
-        v.memory  = 1024
-        v.cpus    = 1
+      node.vm.provider "virtualbox" do |v|
+        v.name = "node#{i}"
+        v.memory = 2048
+        v.cpus = 2
       end
-
-      node.vm.provider :libvirt do |v|
-        v.nested  = true
-        v.memory  = 1024
-        v.cpus    = 1
-      end
-
     end
-
   end
 
 end
