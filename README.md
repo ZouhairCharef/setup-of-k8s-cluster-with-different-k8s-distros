@@ -46,7 +46,7 @@ _Note: Replace `USER`, `PASSWORD`, `MYSQL_IP`, and `K8S_DATABASE` with your MySQ
 - We will use SSH Keys for root account login on all the Kubernetes nodes.
 - Create an ssh keypair on the host machine:
   ```
-  ssh-keygen -t rsa -b 2048
+  ssh-keygen -t ed25519
   ```
 - Copy SSH Keys to all the Kubernetes nodes (password: kubeadmin):
   ```
